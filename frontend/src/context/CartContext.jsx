@@ -29,7 +29,15 @@ export const CartProvider = ({ children }) => {
     try {
       setLoading(true);
       const items = await cartApi.getCart(userId);
-      setCartItems(items || []);
+      // Normalize cart items to include product data at top level
+      const normalizedItems = (items || []).map(item => ({
+        ...item,
+        productId: item.product_id || item.productId,
+        productName: item.product?.name || item.productName,
+        productImage: item.product?.image || item.productImage,
+        price: item.product?.price || item.price || 0,
+      }));
+      setCartItems(normalizedItems);
     } catch (error) {
       console.error('Error fetching cart:', error);
       setCartItems([]);
