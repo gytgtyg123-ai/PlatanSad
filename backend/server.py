@@ -174,7 +174,7 @@ async def get_products(
     max_price: Optional[float] = None,
     badges: Optional[str] = None,
     page: int = 1,
-    limit: int = 100
+    limit: int = 500
 ):
     query = {}
     
