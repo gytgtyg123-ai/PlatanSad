@@ -3,7 +3,9 @@ import api from './api';
 export const productsApi = {
   // Get all products with filters
   getProducts: async (params = {}) => {
-    const response = await api.get('/api/products', { params });
+    // Set high limit by default to get all products
+    const defaultParams = { limit: 500, ...params };
+    const response = await api.get('/api/products', { params: defaultParams });
     return response.data;
   },
 
