@@ -56,8 +56,9 @@ const AdminProducts = () => {
         getAllProducts(),
         getAllCategories()
       ]);
-      setProducts(productsData);
-      setCategories(categoriesData);
+      // API returns {products: [], total: ...}
+      setProducts(Array.isArray(productsData) ? productsData : (productsData?.products || []));
+      setCategories(Array.isArray(categoriesData) ? categoriesData : []);
     } catch {
       toast.error('Помилка завантаження');
     } finally {
