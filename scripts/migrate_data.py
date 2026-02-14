@@ -20,8 +20,8 @@ db_name = os.environ.get('DB_NAME', 'test_database')
 client = MongoClient(mongo_url)
 db = client[db_name]
 
-# SQLite database path
-SQLITE_DB = ROOT_DIR / 'platansad_db_backup_2026-02-14.db'
+# SQLite database path - use the correct database
+SQLITE_DB = ROOT_DIR / 'platansad.db'
 
 def migrate_table(table_name, collection_name=None):
     """Migrate a table from SQLite to MongoDB"""
