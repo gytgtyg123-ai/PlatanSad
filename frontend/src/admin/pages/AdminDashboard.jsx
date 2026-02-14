@@ -38,21 +38,26 @@ const AdminDashboard = () => {
     try {
       setLoading(true);
       
-      const products = await productsApi.getProducts();
+      // Use admin stats API
+      const dashStats = await getDashboardStats();
       
       let orders = [];
       try {
         orders = await getAllOrders();
+        // Handle if orders is wrapped in object
+        if (orders && orders.orders) {
+          orders = orders.orders;
+        }
       } catch (e) {
         orders = [];
       }
 
-      const totalRevenue = orders.reduce((sum, order) => sum + (order.totalAmount || 0), 0);
-      const recentOrders = orders.slice(0, 5);
+      const totalRevenue = dashStats.revenue || orders.reduce((sum, order) => sum + (order.totalAmount || order.total || 0), 0);
+      const recentOrders = Array.isArray(orders) ? orders.slice(0, 5) : [];
 
       setStats({
-        totalProducts: Array.isArray(products) ? products.length : (products?.total || products?.products?.length || 0),
-        totalOrders: orders.length,
+        totalProducts: dashStats.products || 0,
+        totalOrders: dashStats.orders || orders.length || 0,
         totalRevenue,
         recentOrders
       });
