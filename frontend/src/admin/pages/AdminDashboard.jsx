@@ -51,7 +51,7 @@ const AdminDashboard = () => {
       const recentOrders = orders.slice(0, 5);
 
       setStats({
-        totalProducts: products.length,
+        totalProducts: Array.isArray(products) ? products.length : (products?.total || products?.products?.length || 0),
         totalOrders: orders.length,
         totalRevenue,
         recentOrders
