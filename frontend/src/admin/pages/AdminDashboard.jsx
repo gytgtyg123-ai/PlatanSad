@@ -5,7 +5,7 @@ import {
   ChevronRight, Sparkles, Activity, Bell
 } from 'lucide-react';
 import { productsApi } from '../../api/productsApi';
-import { getAllOrders } from '../api/adminApi';
+import { getAllOrders, getDashboardStats } from '../api/adminApi';
 import { useNewOrderNotification } from '../../hooks/useNewOrderNotification';
 import NewOrderPopup from '../components/NewOrderPopup';
 
