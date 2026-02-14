@@ -132,7 +132,8 @@ const CatalogPage = () => {
         abortRef.current = controller;
 
         const data = await productsApi.getProducts({}, { signal: controller.signal });
-        setProducts(Array.isArray(data) ? data : []);
+        // API returns {products: [], total: ...}
+        setProducts(Array.isArray(data) ? data : (data?.products || []));
       } catch (error) {
         if (error?.name === 'AbortError') return;
         console.error('Error fetching products:', error);
