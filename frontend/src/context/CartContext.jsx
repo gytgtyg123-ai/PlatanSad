@@ -111,7 +111,11 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const cartTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  // Calculate totals using product data from API
+  const cartTotal = cartItems.reduce((sum, item) => {
+    const price = item.product?.price || item.price || 0;
+    return sum + (price * item.quantity);
+  }, 0);
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const value = {
